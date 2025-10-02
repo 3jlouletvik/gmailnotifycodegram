@@ -13,7 +13,8 @@ async function getAuthUrl() {
   try {
     const content = await fs.readFile(CREDENTIALS_PATH);
     const credentials = JSON.parse(content);
-    const { client_secret, client_id, redirect_uris } = credentials.installed || credentials.web;
+    const { client_secret, client_id, redirect_uris } = credentials.web || credentials.installed;
+
 
     const oAuth2Client = new google.auth.OAuth2(
       client_id,
@@ -48,7 +49,7 @@ async function getTokensFromCode(code, oAuth2Client) {
 function createAuthClient(tokens) {
   try {
     const credentials = require('./credentials.json');
-    const { client_secret, client_id, redirect_uris } = credentials.installed || credentials.web;
+    const { client_secret, client_id, redirect_uris } = credentials.web || credentials.installed;
 
     const oAuth2Client = new google.auth.OAuth2(
       client_id,
