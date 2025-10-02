@@ -238,7 +238,7 @@ app.post('/gmail-webhook', async (req, res) => {
               let botMessage = `🔑 *Новый код верификации!*\n\n`;
               botMessage += `📧 От: \`${from}\`\n`;
               botMessage += `📝 Тема: ${subject}\n\n`;
-              botMessage += `*Коды:* ${codes.map(c => \`\\`${c}\\`\`).join(', ')}`;
+              botMessage += `*Коды:* ${codes.map(c => '`' + c + '`').join(', ')}`;
 
               await bot.sendMessage(user.telegramId, botMessage, { parse_mode: 'Markdown' });
               console.log(`✅ Код отправлен пользователю ${user.telegramId}`);
